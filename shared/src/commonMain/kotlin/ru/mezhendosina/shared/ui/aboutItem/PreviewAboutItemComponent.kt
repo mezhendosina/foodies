@@ -1,30 +1,29 @@
-package ru.mezhendosina.shared.aboutItem
+package ru.mezhendosina.shared.ui.aboutItem
 
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
-import ru.mezhendosina.shared.entities.AboutItemEntity
+import ru.mezhendosina.shared.ui.entities.ItemEntity
 
 class PreviewAboutItemComponent : AboutItemComponent {
     override val model: Value<AboutItemComponent.Model>
         get() = MutableValue(
             AboutItemComponent.Model(
-                AboutItemEntity(
-                    0,
+                ItemEntity(
                     0,
                     "test",
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pellentesque felis vulputate sodales vestibulum. Mauris vel ipsum nec velit hendrerit egestas vel at ex. Phasellus at suscipit quam. Suspendisse pulvinar ante a nulla porttitor, quis maximus augue fermentum. Maecenas sit amet purus posuere, ultrices mi a, cursus justo. Maecenas tempor metus odio, ac condimentum eros luctus ac. Pellentesque scelerisque massa magna, ac sagittis elit placerat et. Nulla vehicula tortor sit amet nulla semper, in porttitor purus maximus. Nam leo est, dignissim eget feugiat id, hendrerit sit amet felis. Nulla ornare volutpat enim at venenatis. Nulla pellentesque finibus varius. Ut rhoncus vitae lorem et tempus. Donec accumsan dignissim commodo. Maecenas pellentesque ac metus quis faucibus. Duis id mi convallis magna venenatis varius.",
-                    "123",
-                    123f,
-                    123f,
-                    123f,
-                    123f,
-                    720,
-                    1
+                    weight = "123",
+                    energy = 123f,
+                    proteins = 123f,
+                    fats = 123f,
+                    carbohydrates = 123f,
+                    price = 720,
+                    count = 1
                 )
             )
         )
 
-    override fun onCartClick() {
+    override suspend fun onCartClick() {
         TODO("Not yet implemented")
     }
 

@@ -1,9 +1,9 @@
-package ru.mezhendosina.shared.shop
+package ru.mezhendosina.shared.ui.shop
 
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
-import ru.mezhendosina.shared.entities.CategoryEntity
-import ru.mezhendosina.shared.entities.ItemEntity
+import ru.mezhendosina.shared.ui.entities.CategoryEntity
+import ru.mezhendosina.shared.ui.entities.ItemEntity
 
 class PreviewShopComponent : ShopComponent {
     override val model: Value<ShopComponent.Model>

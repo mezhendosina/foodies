@@ -28,13 +28,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import ru.mezhendosina.ntiteamtest.R
-import ru.mezhendosina.shared.entities.AboutItemEntity
 import ru.mezhendosina.ntiteamtest.ui.components.FixedButton
 import ru.mezhendosina.ntiteamtest.ui.components.MeasurementsItem
 import ru.mezhendosina.ntiteamtest.ui.components.OutlinedItemCounter
 import ru.mezhendosina.ntiteamtest.ui.theme.NtiTeamTestTheme
-import ru.mezhendosina.shared.aboutItem.AboutItemComponent
-import ru.mezhendosina.shared.aboutItem.PreviewAboutItemComponent
+import ru.mezhendosina.shared.ui.aboutItem.AboutItemComponent
+import ru.mezhendosina.shared.ui.aboutItem.PreviewAboutItemComponent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,16 +43,19 @@ fun AboutItemScreen(component: AboutItemComponent) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopAppBar(title = {}, navigationIcon = {
-                IconButton(onClick = component::onBack, modifier = Modifier.padding(16.dp)) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_arrow_left),
-                        stringResource(R.string.back),
-                    )
-                }
-            }, colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.Transparent
-            )
+            TopAppBar(
+                title = {},
+                navigationIcon = {
+                    IconButton(onClick = component::onBack, modifier = Modifier.padding(16.dp)) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_arrow_left),
+                            stringResource(R.string.back),
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent,
+                ),
             )
         },
         bottomBar = {
@@ -64,9 +66,9 @@ fun AboutItemScreen(component: AboutItemComponent) {
                         .fillMaxWidth()
                         .padding(
                             horizontal = 16.dp,
-                            vertical = 12.dp
+                            vertical = 12.dp,
                         ),
-                    onCLick = component::onCartClick
+                    onCLick = component::onCartClick,
                 )
             } else {
                 OutlinedItemCounter(
@@ -75,7 +77,7 @@ fun AboutItemScreen(component: AboutItemComponent) {
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 12.dp),
                     Color.Transparent,
-                    onCountChange = { component.onItemCountChanges(it) }
+                    onCountChange = { component.onItemCountChanges(it) },
                 )
             }
         },
@@ -83,52 +85,59 @@ fun AboutItemScreen(component: AboutItemComponent) {
         Column(
             modifier = Modifier
                 .padding(bottom = it.calculateBottomPadding())
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState()),
         ) {
-            Box {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_hot),
-                    contentDescription = model.aboutItem.name,
-                    modifier = Modifier.size(375.dp)
+            model.aboutItem.let { aboutItem ->
+                Box {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_hot),
+                        contentDescription = aboutItem.name,
+                        modifier = Modifier.size(375.dp),
+                    )
+                }
+                Spacer(Modifier.size(24.dp))
+                Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+                    Text(
+                        aboutItem.name,
+                        style = MaterialTheme.typography.displayMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Spacer(modifier = Modifier.size(8.dp))
+                    Text(
+                        text = aboutItem.description,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+                Spacer(modifier = Modifier.size(24.dp))
+                MeasurementsItem(
+                    name = stringResource(R.string.weight),
+                    value = aboutItem.weight,
                 )
+                MeasurementsItem(
+                    name = stringResource(R.string.energy),
+                    value = stringResource(
+                        R.string.gramms,
+                        aboutItem.energy,
+                    ),
+                )
+
+                MeasurementsItem(
+                    name = stringResource(R.string.proteins),
+                    value = stringResource(
+                        R.string.gramms,
+                        aboutItem.proteins,
+                    ),
+                )
+
+                MeasurementsItem(
+                    name = stringResource(R.string.fats),
+                    value = stringResource(
+                        R.string.gramms,
+                        aboutItem.fats,
+                    ),
+                )
+                HorizontalDivider()
             }
-            Spacer(Modifier.size(24.dp))
-            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-                Text(
-                    model.aboutItem.name,
-                    style = MaterialTheme.typography.displayMedium,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Spacer(modifier = Modifier.size(8.dp))
-                Text(
-                    text = model.aboutItem.description,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-            Spacer(modifier = Modifier.size(24.dp))
-            MeasurementsItem(name = stringResource(R.string.weight), value = model.aboutItem.weight)
-            MeasurementsItem(
-                name = stringResource(R.string.energy), value = stringResource(
-                    R.string.gramms,
-                    model.aboutItem.energy
-                )
-            )
-
-            MeasurementsItem(
-                name = stringResource(R.string.proteins), value = stringResource(
-                    R.string.gramms,
-                    model.aboutItem.proteins
-                )
-            )
-
-
-            MeasurementsItem(
-                name = stringResource(R.string.fats), value = stringResource(
-                    R.string.gramms,
-                    model.aboutItem.fats
-                )
-            )
-            HorizontalDivider()
         }
     }
 }

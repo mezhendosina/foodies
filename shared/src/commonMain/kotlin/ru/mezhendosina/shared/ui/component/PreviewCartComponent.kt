@@ -1,8 +1,8 @@
-package ru.mezhendosina.shared.cart
+package ru.mezhendosina.shared.ui.component
 
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
-import ru.mezhendosina.shared.entities.ItemEntity
+import ru.mezhendosina.shared.ui.entities.ItemEntity
 
 class PreviewCartComponent : CartComponent {
     override val model: Value<CartComponent.Model> = MutableValue(

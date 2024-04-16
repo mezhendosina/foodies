@@ -1,12 +1,10 @@
-package ru.mezhendosina.shared.root
+package ru.mezhendosina.shared.ui.root
 
-import com.arkivanov.decompose.Child
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
-import ru.mezhendosina.shared.aboutItem.AboutItemComponent
-import ru.mezhendosina.shared.cart.CartComponent
-import ru.mezhendosina.shared.shop.ShopComponent
+import ru.mezhendosina.shared.ui.aboutItem.AboutItemComponent
+import ru.mezhendosina.shared.ui.component.CartComponent
+import ru.mezhendosina.shared.ui.shop.ShopComponent
 
 interface RootComponent {
     val childStack: Value<ChildStack<*, Child>>

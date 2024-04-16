@@ -25,10 +25,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ru.mezhendosina.ntiteamtest.ui.theme.NtiTeamTestTheme
+import ru.mezhendosina.shared.ui.entities.ItemEntity
 
 @Composable
 fun ItemCard(
-    itemEntity: ru.mezhendosina.shared.entities.ItemEntity,
+    itemEntity: ItemEntity,
     onClick: () -> Unit,
     onCountChanges: (count: Int) -> Unit
 ) {
@@ -90,7 +91,7 @@ private fun PreviewItemCard() {
     NtiTeamTestTheme {
         var count by remember { mutableIntStateOf(0) }
         ItemCard(
-            ru.mezhendosina.shared.entities.ItemEntity.getPreview(count), {}
+            ItemEntity.getPreview(count), {}
         ) {
             count = it
         }
