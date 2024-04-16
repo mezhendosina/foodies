@@ -1,6 +1,10 @@
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    kotlin("multiplatform")
+    id("com.android.library")
+    id("kotlinx-serialization")
+    id("kotlin-parcelize")
+
+
 }
 
 kotlin {
@@ -11,24 +15,15 @@ kotlin {
             }
         }
     }
-    
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "shared"
-            isStatic = true
-        }
-    }
 
     sourceSets {
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            implementation("com.arkivanov.decompose:decompose:3.0.0-beta01")
+            implementation("com.arkivanov.decompose:extensions-compose:3.0.0-beta01")
+            implementation("com.arkivanov.essenty:lifecycle:2.0.0-beta01")
         }
         commonTest.dependencies {
-            implementation(libs.kotlin.test)
+//            implementation(libs.kotlin.test)
         }
     }
 }

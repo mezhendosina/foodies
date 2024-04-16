@@ -1,4 +1,4 @@
-package ru.mezhendosina.ntiteamtest.model.entities
+package ru.mezhendosina.shared.entities
 
 import java.util.ArrayList
 

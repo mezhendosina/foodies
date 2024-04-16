@@ -1,4 +1,4 @@
-package ru.mezhendosina.ntiteamtest.model
+package ru.mezhendosina.shared.entities
 
 enum class Tag {
     NONE,

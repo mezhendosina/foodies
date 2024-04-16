@@ -1,4 +1,4 @@
-package ru.mezhendosina.ntiteamtest.model.entities
+package ru.mezhendosina.shared.entities
 
 data class CategoryEntity(
     val id: Int,

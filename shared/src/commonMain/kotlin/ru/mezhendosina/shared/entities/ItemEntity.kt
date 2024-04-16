@@ -1,7 +1,5 @@
-package ru.mezhendosina.ntiteamtest.model.entities
+package ru.mezhendosina.shared.entities
 
-import androidx.compose.ui.graphics.painter.Painter
-import ru.mezhendosina.ntiteamtest.model.Tag
 
 data class ItemEntity(
     val id: Int,

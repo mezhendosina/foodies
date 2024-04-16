@@ -20,5 +20,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "nti team test"
-include(":app")
+include(":androidApp")
 include(":shared")

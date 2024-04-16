@@ -10,4 +10,5 @@
     <string name="cart">Корзина</string>
     <string name="buy_for">Заказать за %1$s ₽</string>
     <string name="empty_cart">Пусто, выберите блюда\nв каталоге :)</string>
+    <string name="rubs">%1$s ₽</string>
 </resources>
