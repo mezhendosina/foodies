@@ -17,36 +17,38 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.mezhendosina.ntiteamtest.model.entities.CategoryEntity
-import ru.mezhendosina.ntiteamtest.model.entities.ItemEntity
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
+import ru.mezhendosina.ntiteamtest.R
+import ru.mezhendosina.shared.entities.CategoryEntity
+import ru.mezhendosina.shared.entities.ItemEntity
 import ru.mezhendosina.ntiteamtest.ui.components.Category
 import ru.mezhendosina.ntiteamtest.ui.components.FixedButton
 import ru.mezhendosina.ntiteamtest.ui.components.ItemCard
 import ru.mezhendosina.ntiteamtest.ui.theme.NtiTeamTestTheme
+import ru.mezhendosina.shared.shop.PreviewShopComponent
+import ru.mezhendosina.shared.shop.ShopComponent
 
 @Composable
-fun ShopScreen(category: List<CategoryEntity>, items: List<ItemEntity>) {
-    var selectedCategoryId by remember {
-        mutableIntStateOf(category.firstOrNull()?.id ?: -1)
-    }
+fun ShopScreen(component: ShopComponent) {
+    val model by component.model.subscribeAsState()
 
     Scaffold(topBar = {
         LazyRow {
-            items(category) {
-                Category(name = it.name, enabled = it.id == selectedCategoryId) {
-                    selectedCategoryId = it.id
+            items(model.category) {
+                Category(name = it.name, enabled = it.id == model.selectedCategoryId) {
+                    component.onCategoryClick(it.id)
                 }
             }
         }
     }, bottomBar = {
         FixedButton(
-            text = "123",
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
-        ) {
-            TODO()
-        }
+            text = stringResource(R.string.rubs, model.cartSum),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+            onCLick = component::onCartClick
+        )
     }) { paddingValues ->
         LazyVerticalGrid(
             columns = GridCells.Adaptive(167.dp),
@@ -54,9 +56,11 @@ fun ShopScreen(category: List<CategoryEntity>, items: List<ItemEntity>) {
                 .padding(paddingValues)
                 .padding(horizontal = 8.dp),
         ) {
-            items(items) {
-                ItemCard(itemEntity = it, onClick = { /*TODO*/ }) {
-
+            items(model.items) { itemEntity ->
+                ItemCard(
+                    itemEntity = itemEntity,
+                    onClick = { component.onItemClick(itemEntity.id) }) {
+                    component.onItemCountChanges(itemEntity.id, it)
                 }
             }
         }
@@ -68,12 +72,7 @@ fun ShopScreen(category: List<CategoryEntity>, items: List<ItemEntity>) {
 private fun PreviewShopScreen() {
     NtiTeamTestTheme {
         ShopScreen(
-            category = listOf(CategoryEntity.getPreview(), CategoryEntity.getPreview()),
-            items = listOf(
-                ItemEntity.getPreview(0),
-                ItemEntity.getPreview(1),
-                ItemEntity.getPreview(0)
-            )
+            PreviewShopComponent()
         )
     }
 }
@@ -84,12 +83,7 @@ private fun PreviewShopScreen() {
 private fun PreviewSmallShopScreen() {
     NtiTeamTestTheme {
         ShopScreen(
-            category = listOf(CategoryEntity.getPreview(), CategoryEntity.getPreview()),
-            items = listOf(
-                ItemEntity.getPreview(0),
-                ItemEntity.getPreview(1),
-                ItemEntity.getPreview(0)
-            )
+            PreviewShopComponent()
         )
     }
 }

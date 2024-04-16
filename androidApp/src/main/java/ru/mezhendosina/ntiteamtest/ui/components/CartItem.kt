@@ -20,11 +20,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.mezhendosina.ntiteamtest.R
-import ru.mezhendosina.ntiteamtest.model.entities.ItemEntity
+import ru.mezhendosina.shared.entities.ItemEntity
 import ru.mezhendosina.ntiteamtest.ui.theme.NtiTeamTestTheme
 
 @Composable
-fun CartItem(itemEntity: ItemEntity, modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun CartItem(itemEntity: ru.mezhendosina.shared.entities.ItemEntity, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -64,7 +64,7 @@ fun CartItem(itemEntity: ItemEntity, modifier: Modifier = Modifier, onClick: () 
 @Composable
 private fun PreviewCartItem() {
     NtiTeamTestTheme {
-        CartItem(ItemEntity.getPreview(1)) {
+        CartItem(ru.mezhendosina.shared.entities.ItemEntity.getPreview(1)) {
 
         }
     }

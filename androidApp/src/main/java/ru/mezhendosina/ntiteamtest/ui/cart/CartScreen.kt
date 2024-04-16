@@ -15,6 +15,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,26 +24,33 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import ru.mezhendosina.ntiteamtest.R
-import ru.mezhendosina.ntiteamtest.model.entities.ItemEntity
+import ru.mezhendosina.shared.entities.ItemEntity
 import ru.mezhendosina.ntiteamtest.ui.components.CartItem
 import ru.mezhendosina.ntiteamtest.ui.components.CartTopBar
 import ru.mezhendosina.ntiteamtest.ui.components.EmptyScreen
 import ru.mezhendosina.ntiteamtest.ui.components.FixedButton
 import ru.mezhendosina.ntiteamtest.ui.theme.NtiTeamTestTheme
+import ru.mezhendosina.shared.cart.CartComponent
+import ru.mezhendosina.shared.cart.PreviewCartComponent
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartScreen(items: List<ItemEntity>) {
-
+fun CartScreen(cartComponent: CartComponent) {
+    val model by cartComponent.model.subscribeAsState()
     Scaffold(
         topBar = {
             CartTopBar(title = stringResource(R.string.cart))
         },
         bottomBar = {
-            Box(modifier = Modifier.shadow(10.dp).fillMaxWidth().background(Color.White)){
+            Box(
+                modifier = Modifier
+                    .shadow(10.dp)
+                    .fillMaxWidth()
+                    .background(Color.White)
+            ) {
                 FixedButton(
-                    text = stringResource(R.string.buy_for, items.size),
+                    text = stringResource(R.string.buy_for, model.items.size),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -50,9 +58,9 @@ fun CartScreen(items: List<ItemEntity>) {
             }
         },
     ) { paddingValues ->
-        if (items.isNotEmpty()) {
+        if (model.items.isNotEmpty()) {
             LazyColumn(modifier = Modifier.padding(paddingValues)) {
-                items(items) {
+                items(model.items) {
                     CartItem(itemEntity = it) {
 
                     }
@@ -68,13 +76,6 @@ fun CartScreen(items: List<ItemEntity>) {
 @Composable
 private fun PreviewCartScreen() {
     NtiTeamTestTheme {
-        CartScreen(
-            items = listOf(
-                ItemEntity.getPreview(1),
-                ItemEntity.getPreview(3),
-                ItemEntity.getPreview(4),
-                ItemEntity.getPreview(5),
-            )
-        )
+        CartScreen(PreviewCartComponent())
     }
 }
