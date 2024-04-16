@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">nti team test</string>
+    <string name="back">Назад</string>
+    <string name="to_cart">В корзину за %1$s ₽</string>
+    <string name="weight">Вес</string>
+    <string name="energy">Энерг. ценность</string>
+    <string name="gramms">%1$s г</string>
+    <string name="proteins">Белки</string>
+    <string name="fats">Жиры</string>
+    <string name="cart">Корзина</string>
+    <string name="buy_for">Заказать за %1$s ₽</string>
+    <string name="empty_cart">Пусто, выберите блюда\nв каталоге :)</string>
+</resources>
