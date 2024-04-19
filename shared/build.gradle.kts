@@ -37,14 +37,10 @@ kotlin {
             implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.6")
 
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-
-
         }
-
         commonTest.dependencies {
-//            implementation(libs.kotlin.test)
+            implementation("org.jetbrains.kotlin:kotlin-test:1.9.23")
         }
-
     }
 }
 
