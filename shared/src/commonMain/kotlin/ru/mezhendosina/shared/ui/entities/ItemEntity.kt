@@ -10,15 +10,32 @@ data class ItemEntity(
     val name: String,
     val description: String,
     val weight: String,
-    val energy: Float,
-    val proteins: Float,
-    val fats: Float,
-    val carbohydrates: Float,
-    val price: Int,
-    val oldPrice: Int? = null,
+    val energy: Double,
+    val proteins: Double,
+    val fats: Double,
+    val carbohydrates: Double,
+    val price: Double,
+    val oldPrice: Double? = null,
     val count: Int = 0,
-    val tag: Tag = Tag.NONE
+    val tag: Tag = Tag.NONE,
+    val inCart: Boolean = false
 ) {
+
+    fun inCart(boolean: Boolean): ItemEntity = ItemEntity(
+        id,
+        name,
+        description,
+        weight,
+        energy,
+        proteins,
+        fats,
+        carbohydrates,
+        price,
+        oldPrice,
+        count,
+        tag,
+        boolean
+    )
 
     fun updateCount(newCount: Int): ItemEntity = ItemEntity(
         id,
@@ -42,12 +59,12 @@ data class ItemEntity(
                 "test",
                 "123",
                 "123",
-                123f,
-                123f,
-                123f,
-                123f,
-                123,
-                123,
+                123.0,
+                123.0,
+                123.0,
+                123.0,
+                123.0,
+                123.0,
                 count,
                 Tag.HOT
             )

@@ -10,5 +10,5 @@ interface CartRepository {
      */
     suspend fun updateCount(item: ItemEntity)
 
-    fun getSum(): Int
+    fun getSum(): Double
 }

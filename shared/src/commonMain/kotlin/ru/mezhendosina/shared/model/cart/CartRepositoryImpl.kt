@@ -40,7 +40,7 @@ class CartRepositoryImpl : CartRepository {
 
     }
 
-    override fun getSum(): Int = _cart.value.sumOf { it.price * it.count }
+    override fun getSum(): Double = _cart.value.sumOf { it.price * it.count }
 
     private fun ItemEntity.inCart(): Boolean = _cart.value.find { it.id == this.id } != null
 }

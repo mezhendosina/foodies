@@ -17,10 +17,6 @@ class MainActivity : ComponentActivity(), KoinComponent {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        startKoin {
-            modules(repoModule)
-        }
-
         val rootComponent = DefaultRootComponent(defaultComponentContext(), get(), get())
         setContent {
             NtiTeamTestTheme {

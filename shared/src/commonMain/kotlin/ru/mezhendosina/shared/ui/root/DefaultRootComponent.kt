@@ -49,7 +49,6 @@ class DefaultRootComponent(
     private fun itemShop(componentContext: ComponentContext): ShopComponent =
         DefaultShopComponent(
             shopRepository,
-            cartRepository,
             { navigation.push(Config.Cart) },
             { navigation.push(Config.AboutItem(it)) },
             componentContext

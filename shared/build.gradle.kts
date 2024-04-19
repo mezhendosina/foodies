@@ -4,6 +4,7 @@ plugins {
     id("kotlinx-serialization")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
+    id("de.jensklingenberg.ktorfit")
 }
 
 kotlin {
@@ -32,6 +33,11 @@ kotlin {
             implementation("com.arkivanov.essenty:lifecycle:2.0.0-beta01")
 
             implementation("de.jensklingenberg.ktorfit:ktorfit-lib:1.11.0")
+            implementation("io.ktor:ktor-client-content-negotiation:2.3.6")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.6")
+
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
 
         }
 

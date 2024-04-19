@@ -16,7 +16,7 @@ class PreviewShopComponent : ShopComponent {
                     ItemEntity.getPreview(0)
                 ),
                 0,
-                123
+                123.0
             )
         )
 

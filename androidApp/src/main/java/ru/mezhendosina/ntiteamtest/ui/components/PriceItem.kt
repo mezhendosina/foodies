@@ -20,9 +20,9 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun PriceItem(
-    price: Int,
+    price: Double,
     modifier: Modifier = Modifier,
-    oldPrice: Int? = null,
+    oldPrice: Double? = null,
     verticalPrice: Boolean = false
 ) {
     if (verticalPrice) {
@@ -41,7 +41,7 @@ fun PriceItem(
 }
 
 @Composable
-private fun PriceContent(price: Int, oldPrice: Int? = null, padding: Dp = 8.dp) {
+private fun PriceContent(price: Double, oldPrice: Double? = null, padding: Dp = 8.dp) {
     Text(
         text = "$price ₽",
         style = MaterialTheme.typography.bodyMedium,

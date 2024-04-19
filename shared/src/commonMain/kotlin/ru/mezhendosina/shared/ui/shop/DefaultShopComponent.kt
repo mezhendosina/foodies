@@ -8,13 +8,10 @@ import com.arkivanov.decompose.value.update
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import ru.mezhendosina.shared.model.cart.CartRepository
 import ru.mezhendosina.shared.model.shop.repo.ShopRepository
 
 class DefaultShopComponent(
     private val shopRepository: ShopRepository,
-    private val cartRepository: CartRepository,
     private val onCartClick: () -> Unit,
     private val onItemClick: (id: Int) -> Unit,
     componentContext: ComponentContext
@@ -25,18 +22,22 @@ class DefaultShopComponent(
             shopRepository.categories.value,
             shopRepository.items.value,
             shopRepository.categories.value.firstOrNull()?.id ?: -1,
-            0
+            shopRepository.getSum()
         )
     )
     override val model: Value<ShopComponent.Model> = _model
 
     init {
+        CoroutineScope(Dispatchers.IO).launch {
+            shopRepository.getItems(_model.value.selectedCategoryId)
+        }
         shopRepository.categories.subscribe(lifecycle) { list ->
             _model.update {
                 ShopComponent.Model(
                     list,
                     it.items,
-                    it.selectedCategoryId,
+                    if (it.selectedCategoryId == -1) list.firstOrNull()?.id
+                        ?: -1 else it.selectedCategoryId,
                     it.cartSum
                 )
             }
@@ -47,7 +48,7 @@ class DefaultShopComponent(
                     it.category,
                     list,
                     it.selectedCategoryId,
-                    it.cartSum
+                    shopRepository.getSum()
                 )
             }
         }
@@ -71,19 +72,8 @@ class DefaultShopComponent(
     override fun onItemCountChanges(id: Int, count: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             val getItem = _model.value.items.first { it.id == id }.updateCount(count)
-            cartRepository.updateCount(getItem)
-            val updateShop =
-                shopRepository.items.value.map { if (it.id == getItem.id) getItem else it }
-            val model = ShopComponent.Model(
-                _model.value.category,
-                updateShop,
-                _model.value.selectedCategoryId,
-                cartRepository.getSum()
-            )
+            shopRepository.updateCount(getItem)
 
-            withContext(Dispatchers.Main) {
-                _model.update { model }
-            }
         }
     }
 }

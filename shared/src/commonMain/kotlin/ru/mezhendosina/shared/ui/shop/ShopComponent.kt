@@ -7,6 +7,7 @@ import ru.mezhendosina.shared.ui.entities.ItemEntity
 interface ShopComponent {
     val model: Value<Model>
 
+
     fun onCategoryClick(id: Int)
     fun onCartClick()
     fun onItemClick(id: Int)
@@ -15,6 +16,6 @@ interface ShopComponent {
         val category: List<CategoryEntity>,
         val items: List<ItemEntity>,
         val selectedCategoryId: Int,
-        val cartSum: Int
+        val cartSum: Double
     )
 }

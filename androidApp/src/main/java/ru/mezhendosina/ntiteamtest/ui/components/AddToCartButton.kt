@@ -14,9 +14,9 @@ import ru.mezhendosina.ntiteamtest.ui.theme.NtiTeamTestTheme
 
 @Composable
 fun AddToCartButton(
-    price: Int,
+    price: Double,
     modifier: Modifier = Modifier,
-    oldPrice: Int? = null,
+    oldPrice: Double? = null,
     onClick: () -> Unit
 ) {
     Button(
@@ -38,7 +38,7 @@ fun AddToCartButton(
 @Composable
 private fun PreviewAddToCartButton() {
     NtiTeamTestTheme {
-        AddToCartButton(price = 123, oldPrice = 123) {
+        AddToCartButton(price = 123.0, oldPrice = 123.0) {
         }
     }
 }

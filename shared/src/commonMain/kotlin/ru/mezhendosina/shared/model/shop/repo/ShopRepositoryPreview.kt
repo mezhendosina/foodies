@@ -20,6 +20,14 @@ class ShopRepositoryPreview: ShopRepository {
     override val categories: Value<List<CategoryEntity>>
         get() = MutableValue(emptyList())
 
-    override fun getItems(categoryId: Int) {
+    override suspend fun updateCount(item: ItemEntity) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSum(): Double {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getItems(categoryId: Int) {
     }
 }

@@ -29,7 +29,7 @@ data class ProductRepsponseEntity(
     @SerialName("price_current")
     val priceCurrent: Int,
     @SerialName("price_old")
-    val priceOld: Int,
+    val priceOld: Int?,
     @SerialName("proteins_per_100_grams")
     val proteinsPer100Grams: Double,
     @SerialName("tag_ids")
