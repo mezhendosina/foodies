@@ -1,5 +1,9 @@
 package ru.mezhendosina.ntiteamtest.ui.shop
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -40,12 +44,14 @@ fun ShopScreen(component: ShopComponent) {
         FixedButton(
             text = stringResource(R.string.rubs, model.cartSum),
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+            model.cartSum > 0,
             onCLick = component::onCartClick
         )
     }) { paddingValues ->
         LazyVerticalGrid(
             columns = GridCells.Adaptive(167.dp),
             modifier = Modifier
+                .animateContentSize()
                 .padding(paddingValues)
                 .padding(horizontal = 8.dp),
         ) {

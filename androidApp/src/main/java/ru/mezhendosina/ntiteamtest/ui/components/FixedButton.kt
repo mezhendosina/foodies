@@ -1,5 +1,10 @@
 package ru.mezhendosina.ntiteamtest.ui.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,20 +21,30 @@ import androidx.compose.ui.unit.dp
 import ru.mezhendosina.ntiteamtest.ui.theme.NtiTeamTestTheme
 
 @Composable
-fun FixedButton(text: String, modifier: Modifier, onCLick: () -> Unit) {
-    Button(
-        onClick = onCLick,
-        modifier = modifier
-            .fillMaxWidth(),
-        contentPadding = PaddingValues(vertical = 16.dp),
-        shape = RoundedCornerShape(8.dp)
-    ) {
-
-        Text(
-            text,
-            style = MaterialTheme.typography.bodySmall,
-            fontWeight = FontWeight.Medium
+fun FixedButton(text: String, modifier: Modifier, show: Boolean = true, onCLick: () -> Unit) {
+    AnimatedVisibility(
+        visible = show,
+        enter = fadeIn() + slideInVertically(
+            initialOffsetY = { it / 2 }
+        ),
+        exit = fadeOut() + slideOutVertically(
+            targetOffsetY = { it /2 }
         )
+    ) {
+        Button(
+            onClick = onCLick,
+            modifier = modifier
+                .fillMaxWidth(),
+            contentPadding = PaddingValues(vertical = 16.dp),
+            shape = RoundedCornerShape(8.dp)
+        ) {
+
+            Text(
+                text,
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Medium
+            )
+        }
     }
 }
 
