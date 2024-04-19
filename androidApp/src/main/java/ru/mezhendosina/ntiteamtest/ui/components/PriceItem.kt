@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 /**
  * @param verticalPrice: Если true, отобразить старую цену снизу новой, иначе отобразить старую справа
@@ -52,6 +53,7 @@ private fun PriceContent(price: Double, oldPrice: Double? = null, padding: Dp = 
         Text(
             text = "$oldPrice ₽",
             style = MaterialTheme.typography.bodySmall,
+            fontSize = 10.sp,
             textDecoration = TextDecoration.LineThrough,
             color = MaterialTheme.colorScheme.onSurface
         )
