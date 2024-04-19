@@ -1,4 +1,4 @@
-package ru.mezhendosina.shared.ui.component
+package ru.mezhendosina.shared.ui.cart
 
 import com.arkivanov.decompose.value.Value
 import ru.mezhendosina.shared.ui.entities.ItemEntity

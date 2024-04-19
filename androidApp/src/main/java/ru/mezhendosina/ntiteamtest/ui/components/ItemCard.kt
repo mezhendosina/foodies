@@ -90,6 +90,7 @@ fun ItemCard(
 private fun PreviewItemCard() {
     NtiTeamTestTheme {
         var count by remember { mutableIntStateOf(0) }
+
         ItemCard(
             ItemEntity.getPreview(count), {}
         ) {

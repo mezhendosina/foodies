@@ -14,6 +14,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
+import org.koin.compose.getKoin
+import org.koin.core.context.GlobalContext.get
 import ru.mezhendosina.ntiteamtest.R
 import ru.mezhendosina.ntiteamtest.ui.components.Category
 import ru.mezhendosina.ntiteamtest.ui.components.FixedButton

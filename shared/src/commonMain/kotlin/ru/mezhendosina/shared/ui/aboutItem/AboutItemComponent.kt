@@ -7,8 +7,6 @@ interface AboutItemComponent {
     val model: Value<Model>
 
 
-    suspend fun onCartClick()
-
     fun onBack()
 
     fun onItemCountChanges(count: Int)

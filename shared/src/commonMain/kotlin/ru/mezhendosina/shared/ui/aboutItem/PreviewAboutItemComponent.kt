@@ -23,9 +23,6 @@ class PreviewAboutItemComponent : AboutItemComponent {
             )
         )
 
-    override suspend fun onCartClick() {
-        TODO("Not yet implemented")
-    }
 
     override fun onBack() {
         TODO("Not yet implemented")

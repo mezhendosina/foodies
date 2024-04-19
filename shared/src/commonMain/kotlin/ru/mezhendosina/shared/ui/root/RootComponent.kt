@@ -3,7 +3,7 @@ package ru.mezhendosina.shared.ui.root
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 import ru.mezhendosina.shared.ui.aboutItem.AboutItemComponent
-import ru.mezhendosina.shared.ui.component.CartComponent
+import ru.mezhendosina.shared.ui.cart.CartComponent
 import ru.mezhendosina.shared.ui.shop.ShopComponent
 
 interface RootComponent {

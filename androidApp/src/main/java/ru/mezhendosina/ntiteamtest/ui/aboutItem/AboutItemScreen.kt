@@ -27,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
+import org.koin.compose.getKoin
 import ru.mezhendosina.ntiteamtest.R
 import ru.mezhendosina.ntiteamtest.ui.components.FixedButton
 import ru.mezhendosina.ntiteamtest.ui.components.MeasurementsItem
@@ -68,7 +69,7 @@ fun AboutItemScreen(component: AboutItemComponent) {
                             horizontal = 16.dp,
                             vertical = 12.dp,
                         ),
-                    onCLick = component::onCartClick,
+                    onCLick = { component.onItemCountChanges(1) },
                 )
             } else {
                 OutlinedItemCounter(

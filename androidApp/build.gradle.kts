@@ -20,6 +20,7 @@ android {
         }
     }
 
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -47,13 +48,19 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    applicationVariants.configureEach {
+        kotlin.sourceSets {
+            getByName(name) {
+                kotlin.srcDir("build/generated/ksp/${this.name}/kotlin")
+            }
+        }
+    }
 }
 
 dependencies {
     implementation(project(":shared"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -68,7 +75,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
+    // decompose
     implementation("com.arkivanov.decompose:decompose:3.0.0-beta01")
     implementation("com.arkivanov.decompose:extensions-compose:3.0.0-beta01")
+
+    // koin
+    implementation("io.insert-koin:koin-core:3.5.6")
+    implementation("io.insert-koin:koin-androidx-compose:3.5.6")
 }

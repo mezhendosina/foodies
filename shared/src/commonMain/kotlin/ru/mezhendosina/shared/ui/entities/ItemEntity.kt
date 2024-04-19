@@ -20,6 +20,21 @@ data class ItemEntity(
     val tag: Tag = Tag.NONE
 ) {
 
+    fun updateCount(newCount: Int): ItemEntity = ItemEntity(
+        id,
+        name,
+        description,
+        weight,
+        energy,
+        proteins,
+        fats,
+        carbohydrates,
+        price,
+        oldPrice,
+        newCount,
+        tag
+    )
+
     companion object {
         fun getPreview(count: Int): ItemEntity =
             ItemEntity(
