@@ -8,6 +8,7 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.backhandler.BackHandlerOwner
 import kotlinx.serialization.Serializable
 import ru.mezhendosina.shared.model.cart.CartRepository
 import ru.mezhendosina.shared.model.shop.repo.ShopRepository
@@ -25,7 +26,7 @@ class DefaultRootComponent(
     private val componentContext: ComponentContext,
     private val shopRepository: ShopRepository,
     private val cartRepository: CartRepository
-) : RootComponent, ComponentContext by componentContext {
+) : RootComponent, ComponentContext by componentContext, BackHandlerOwner {
     private val navigation = StackNavigation<Config>()
 
 
@@ -36,6 +37,10 @@ class DefaultRootComponent(
         handleBackButton = true,
         childFactory = ::child,
     )
+
+    override fun onBack() {
+        navigation.pop()
+    }
 
     private fun child(config: Config, componentContext: ComponentContext): Child =
         when (config) {
