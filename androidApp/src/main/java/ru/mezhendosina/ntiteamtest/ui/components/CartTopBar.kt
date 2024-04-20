@@ -23,7 +23,7 @@ import ru.mezhendosina.ntiteamtest.ui.theme.NtiTeamTestTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartTopBar(title: String) {
+fun CartTopBar(title: String, onBack: () -> Unit) {
     TopAppBar(
         title = {
             Text(
@@ -39,9 +39,7 @@ fun CartTopBar(title: String) {
             containerColor = MaterialTheme.colorScheme.background,
         ),
         navigationIcon = {
-            IconButton(
-                {}
-            ) {
+            IconButton(onBack) {
                 Image(
                     painterResource(id = R.drawable.ic_arrow_left),
                     null,
@@ -56,6 +54,6 @@ fun CartTopBar(title: String) {
 @Composable
 private fun PreviewTopAppBar() {
     NtiTeamTestTheme {
-        CartTopBar("234")
+        CartTopBar("234") {}
     }
 }

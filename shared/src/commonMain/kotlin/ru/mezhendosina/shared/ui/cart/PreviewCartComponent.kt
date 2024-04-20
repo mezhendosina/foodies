@@ -12,7 +12,20 @@ class PreviewCartComponent : CartComponent {
                 ItemEntity.getPreview(1),
                 ItemEntity.getPreview(2),
                 ItemEntity.getPreview(3),
-            )
+            ),
+            0.0
         )
     )
+
+    override fun toAboutItem(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onItemChangeCount(id: Int, count: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onBack() {
+        TODO("Not yet implemented")
+    }
 }

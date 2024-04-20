@@ -56,7 +56,10 @@ class DefaultRootComponent(
 
     private fun itemCart(componentContext: ComponentContext): CartComponent =
         DefaultCartComponent(
-            componentContext
+            shopRepository,
+            componentContext,
+            { navigation.push(Config.AboutItem(it)) },
+            navigation::pop
         )
 
     private fun itemAboutItem(id: Int, componentContext: ComponentContext): AboutItemComponent =

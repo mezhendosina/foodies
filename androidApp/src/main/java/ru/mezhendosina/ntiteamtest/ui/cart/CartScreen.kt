@@ -32,7 +32,7 @@ fun CartScreen(cartComponent: CartComponent) {
     val model by cartComponent.model.subscribeAsState()
     Scaffold(
         topBar = {
-            CartTopBar(title = stringResource(R.string.cart))
+            CartTopBar(title = stringResource(R.string.cart), cartComponent::onBack)
         },
         bottomBar = {
             Box(
@@ -42,7 +42,7 @@ fun CartScreen(cartComponent: CartComponent) {
                     .background(Color.White)
             ) {
                 FixedButton(
-                    text = stringResource(R.string.buy_for, model.items.size),
+                    text = stringResource(R.string.buy_for, model.cartSum),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 12.dp)
@@ -52,9 +52,12 @@ fun CartScreen(cartComponent: CartComponent) {
     ) { paddingValues ->
         if (model.items.isNotEmpty()) {
             LazyColumn(modifier = Modifier.padding(paddingValues)) {
-                items(model.items) {
-                    CartItem(itemEntity = it) {
-
+                items(model.items) { itemEntity ->
+                    CartItem(
+                        itemEntity = itemEntity,
+                        onClick = { cartComponent.toAboutItem(itemEntity.id) }
+                    ) {
+                        cartComponent.onItemChangeCount(itemEntity.id, it)
                     }
                 }
             }

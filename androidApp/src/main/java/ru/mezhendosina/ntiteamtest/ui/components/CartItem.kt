@@ -22,7 +22,12 @@ import ru.mezhendosina.ntiteamtest.ui.theme.NtiTeamTestTheme
 import ru.mezhendosina.shared.ui.entities.ItemEntity
 
 @Composable
-fun CartItem(itemEntity: ItemEntity, modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun CartItem(
+    itemEntity: ItemEntity,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    onCountChanges: (count: Int) -> Unit
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -31,7 +36,7 @@ fun CartItem(itemEntity: ItemEntity, modifier: Modifier = Modifier, onClick: () 
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_discount),
+            painter = painterResource(id = R.drawable.ic_photo),
             contentDescription = itemEntity.name,
             modifier = Modifier.size(96.dp)
         )
@@ -40,8 +45,11 @@ fun CartItem(itemEntity: ItemEntity, modifier: Modifier = Modifier, onClick: () 
             Text(text = itemEntity.name)
             Spacer(modifier = Modifier.size(12.dp))
             Row(verticalAlignment = Alignment.Bottom) {
-                ElevatedItemCounter(count = itemEntity.count, surfaceBackground = true) {
-
+                ElevatedItemCounter(
+                    count = itemEntity.count,
+                    surfaceBackground = true
+                ) {
+                    onCountChanges(it)
                 }
                 PriceItem(
                     price = itemEntity.price,
@@ -62,7 +70,7 @@ fun CartItem(itemEntity: ItemEntity, modifier: Modifier = Modifier, onClick: () 
 @Composable
 private fun PreviewCartItem() {
     NtiTeamTestTheme {
-        CartItem(ItemEntity.getPreview(1)) {
+        CartItem(ItemEntity.getPreview(1), onClick = {}) {
 
         }
     }
