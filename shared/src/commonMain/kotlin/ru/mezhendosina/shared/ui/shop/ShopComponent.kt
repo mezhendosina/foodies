@@ -3,6 +3,7 @@ package ru.mezhendosina.shared.ui.shop
 import com.arkivanov.decompose.value.Value
 import ru.mezhendosina.shared.ui.entities.CategoryEntity
 import ru.mezhendosina.shared.ui.entities.ItemEntity
+import ru.mezhendosina.shared.ui.entities.UiState
 
 interface ShopComponent {
     val model: Value<Model>
@@ -16,6 +17,7 @@ interface ShopComponent {
         val category: List<CategoryEntity>,
         val items: List<ItemEntity>,
         val selectedCategoryId: Int,
+        val state: UiState,
         val cartSum: Double
     )
 }

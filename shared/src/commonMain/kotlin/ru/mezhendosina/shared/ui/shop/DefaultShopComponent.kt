@@ -8,7 +8,10 @@ import com.arkivanov.decompose.value.update
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.mezhendosina.shared.model.shop.repo.ShopRepository
+import ru.mezhendosina.shared.ui.entities.ItemEntity
+import ru.mezhendosina.shared.ui.entities.UiState
 
 class DefaultShopComponent(
     private val shopRepository: ShopRepository,
@@ -22,6 +25,7 @@ class DefaultShopComponent(
             shopRepository.categories.value,
             shopRepository.items.value,
             shopRepository.categories.value.firstOrNull()?.id ?: -1,
+            UiState.LOADED,
             shopRepository.getSum()
         )
     )
@@ -29,6 +33,7 @@ class DefaultShopComponent(
 
     init {
         CoroutineScope(Dispatchers.IO).launch {
+            stateLoading()
             shopRepository.getItems(_model.value.selectedCategoryId)
         }
         shopRepository.categories.subscribe(lifecycle) { list ->
@@ -38,30 +43,35 @@ class DefaultShopComponent(
                     it.items,
                     if (it.selectedCategoryId == -1) list.firstOrNull()?.id
                         ?: -1 else it.selectedCategoryId,
+                    it.state,
                     it.cartSum
                 )
             }
         }
         shopRepository.items.subscribe(lifecycle) { list ->
-            _model.update {
-                ShopComponent.Model(
-                    it.category,
-                    list,
-                    it.selectedCategoryId,
-                    shopRepository.getSum()
-                )
+            CoroutineScope(Dispatchers.IO).launch {
+                _model.update {
+                    ShopComponent.Model(
+                        it.category,
+                        list,
+                        it.selectedCategoryId,
+                        UiState.LOADED,
+                        shopRepository.getSum()
+                    )
+                }
             }
         }
     }
 
 
     override fun onCategoryClick(id: Int) {
-        _model.update {
+        _model.update { modelUpdate ->
             ShopComponent.Model(
-                it.category,
-                it.items,
+                modelUpdate.category,
+                shopRepository.items.value.filter { it.categoryId == id },
                 id,
-                it.cartSum
+                modelUpdate.state,
+                modelUpdate.cartSum
             )
         }
     }
@@ -76,4 +86,19 @@ class DefaultShopComponent(
 
         }
     }
+
+    private suspend fun stateLoading() {
+        withContext(Dispatchers.Main) {
+            _model.update {
+                ShopComponent.Model(
+                    it.category,
+                    it.items,
+                    it.selectedCategoryId,
+                    UiState.LOADING,
+                    it.cartSum
+                )
+            }
+        }
+    }
+
 }

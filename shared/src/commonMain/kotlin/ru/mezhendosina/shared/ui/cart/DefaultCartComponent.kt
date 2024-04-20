@@ -8,7 +8,6 @@ import com.arkivanov.decompose.value.update
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import ru.mezhendosina.shared.model.shop.repo.ShopRepository
 
 class DefaultCartComponent(

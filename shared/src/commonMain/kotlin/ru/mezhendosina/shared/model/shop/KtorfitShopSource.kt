@@ -33,6 +33,7 @@ class KtorfitShopSource(private val ktorfit: Ktorfit) : ShopSource {
             it.id,
             it.name,
             it.description,
+            it.categoryId,
             "${it.measure} ${it.measureUnit}",
             it.energyPer100Grams,
             it.proteinsPer100Grams,

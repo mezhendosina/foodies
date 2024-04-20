@@ -31,7 +31,7 @@ fun RootScreen(rootComponent: RootComponent) {
                     is RootComponent.Child.ShopChild -> fade()
                 }
 
-            }, // Your usual animation here
+            },
             onBack = rootComponent::onBack,
 
             ),

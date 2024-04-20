@@ -38,13 +38,16 @@ class ShopRepositoryImpl(
         _items.value = _items.value.map { if (it.id == this.id) this.inCart(false) else it }
     }
 
-    override fun getSum(): Double = _items.value.sumOf { if (it.inCart) it.price * it.count else 0.0 }
+    override fun getSum(): Double =
+        _items.value.sumOf { if (it.inCart) it.price * it.count else 0.0 }
 
     override suspend fun getItems(categoryId: Int) {
         if (_items.value.isNotEmpty()) return
-        val resp = shopSource.getProducts()
+        val categoryResp = shopSource.getCategories()
+        val shopResp = shopSource.getProducts()
         withContext(Dispatchers.Main) {
-            _items.update { resp }
+            _items.update { shopResp }
+            _categories.update { categoryResp }
         }
 
     }

@@ -27,7 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import org.koin.compose.getKoin
 import ru.mezhendosina.ntiteamtest.R
 import ru.mezhendosina.ntiteamtest.ui.components.FixedButton
 import ru.mezhendosina.ntiteamtest.ui.components.MeasurementsItem
@@ -87,13 +86,14 @@ fun AboutItemScreen(component: AboutItemComponent) {
             modifier = Modifier
                 .padding(bottom = it.calculateBottomPadding())
                 .verticalScroll(rememberScrollState()),
+
         ) {
             model.aboutItem.let { aboutItem ->
                 Box {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_hot),
+                        painter = painterResource(id = R.drawable.ic_photo),
                         contentDescription = aboutItem.name,
-                        modifier = Modifier.size(375.dp),
+                        modifier = Modifier.fillMaxWidth(),
                     )
                 }
                 Spacer(Modifier.size(24.dp))
