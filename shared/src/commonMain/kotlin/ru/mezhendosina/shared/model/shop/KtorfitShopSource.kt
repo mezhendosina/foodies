@@ -10,7 +10,7 @@ import ru.mezhendosina.shared.ui.entities.ItemEntity
 class KtorfitShopSource(private val ktorfit: Ktorfit) : ShopSource {
     val shopApi = ktorfit.create<ShopApi>()
     override suspend fun getCategories(): List<CategoryEntity> {
-        return shopApi.getCategories().toItemList()
+        return shopApi.getCategories().toCategoryEntity()
     }
 
     override suspend fun getTags(): List<TagsResponseEntity> {
@@ -21,7 +21,7 @@ class KtorfitShopSource(private val ktorfit: Ktorfit) : ShopSource {
         return shopApi.getProducts().toItemList()
     }
 
-    private fun List<CategoriesResponseEntity>.toItemList(): List<CategoryEntity> = this.map {
+    private fun List<CategoriesResponseEntity>.toCategoryEntity(): List<CategoryEntity> = this.map {
         CategoryEntity(
             it.id,
             it.name
