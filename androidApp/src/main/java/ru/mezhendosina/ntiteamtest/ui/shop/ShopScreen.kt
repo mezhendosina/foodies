@@ -22,6 +22,7 @@ import org.koin.compose.getKoin
 import org.koin.core.context.GlobalContext.get
 import ru.mezhendosina.ntiteamtest.R
 import ru.mezhendosina.ntiteamtest.ui.components.Category
+import ru.mezhendosina.ntiteamtest.ui.components.EmptyScreen
 import ru.mezhendosina.ntiteamtest.ui.components.FixedButton
 import ru.mezhendosina.ntiteamtest.ui.components.ItemCard
 import ru.mezhendosina.ntiteamtest.ui.theme.NtiTeamTestTheme
@@ -48,6 +49,10 @@ fun ShopScreen(component: ShopComponent) {
             onCLick = component::onCartClick
         )
     }) { paddingValues ->
+        if (model.items.isEmpty()) {
+            EmptyScreen(text = stringResource(R.string.emty_catalog))
+            return@Scaffold
+        }
         LazyVerticalGrid(
             columns = GridCells.Adaptive(167.dp),
             modifier = Modifier
