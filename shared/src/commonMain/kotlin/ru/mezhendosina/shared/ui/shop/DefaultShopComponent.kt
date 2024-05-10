@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.mezhendosina.shared.model.shop.repo.ShopRepository
-import ru.mezhendosina.shared.ui.entities.ItemEntity
 import ru.mezhendosina.shared.ui.entities.UiState
 
 class DefaultShopComponent(
@@ -34,7 +33,7 @@ class DefaultShopComponent(
     init {
         CoroutineScope(Dispatchers.IO).launch {
             stateLoading()
-            shopRepository.getItems(_model.value.selectedCategoryId)
+            shopRepository.getItems()
         }
         shopRepository.categories.subscribe(lifecycle) { list ->
             _model.update {

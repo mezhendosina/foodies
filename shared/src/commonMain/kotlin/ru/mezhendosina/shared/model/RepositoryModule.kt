@@ -4,7 +4,9 @@ import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 import org.koin.dsl.module
+import ru.mezhendosina.shared.BASE_URL
 import ru.mezhendosina.shared.model.cart.CartRepository
 import ru.mezhendosina.shared.model.cart.CartRepositoryImpl
 import ru.mezhendosina.shared.model.shop.KtorfitShopSource
@@ -18,15 +20,19 @@ val ktorfitModule = module {
 
         val ktorClient = HttpClient {
             install(ContentNegotiation) {
-                json()
+                json(
+                    Json {
+                        prettyPrint = true
+                        isLenient = true
+                    }
+                )
             }
         }
 
         Ktorfit.Builder()
-            .baseUrl("https://anika1d.github.io/")
+            .baseUrl(BASE_URL)
             .httpClient(ktorClient)
             .build()
-
     }
 }
 

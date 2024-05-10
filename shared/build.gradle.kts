@@ -40,6 +40,11 @@ kotlin {
         }
         commonTest.dependencies {
             implementation("org.jetbrains.kotlin:kotlin-test:1.9.23")
+            implementation("io.insert-koin:koin-test:3.5.6")
+            implementation("io.insert-koin:koin-test-junit4:3.5.6")
+            implementation("io.insert-koin:koin-test-junit5:3.5.6")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+
         }
     }
 }

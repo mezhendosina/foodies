@@ -28,6 +28,6 @@ class ShopRepositoryPreview: ShopRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getItems(categoryId: Int) {
+    override suspend fun getItems() {
     }
 }
