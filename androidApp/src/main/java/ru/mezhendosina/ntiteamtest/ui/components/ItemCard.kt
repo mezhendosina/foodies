@@ -51,7 +51,7 @@ fun ItemCard(
                 .height(170.dp)
                 .fillMaxWidth()
         ) {
-            TagImage(itemEntity.tag, modifier = Modifier.padding(8.dp))
+            TagsList(itemEntity.tags, modifier = Modifier.padding(8.dp))
             Image(
                 modifier = Modifier.fillMaxWidth(),
                 painter = painterResource(id = R.drawable.ic_photo),
