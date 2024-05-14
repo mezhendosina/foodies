@@ -36,6 +36,7 @@ class DefaultShopComponent(
         CoroutineScope(Dispatchers.IO).launch {
             stateLoading()
             shopRepository.getItems()
+            stateLoaded()
         }
         shopRepository.categories.subscribe(lifecycle) { list ->
             updateCategories(list)
@@ -92,7 +93,7 @@ class DefaultShopComponent(
                         it.category,
                         sortList,
                         it.selectedCategoryId,
-                        UiState.LOADED,
+                        it.state,
                         shopRepository.getSum()
                     )
                 }
@@ -121,6 +122,20 @@ class DefaultShopComponent(
             val getItem = _model.value.items.first { it.id == id }.updateCount(count)
             shopRepository.updateCount(getItem)
 
+        }
+    }
+
+    private suspend fun stateLoaded() {
+        withContext(Dispatchers.Main) {
+            _model.update {
+                ShopComponent.Model(
+                    it.category,
+                    it.items,
+                    it.selectedCategoryId,
+                    UiState.LOADED,
+                    it.cartSum
+                )
+            }
         }
     }
 

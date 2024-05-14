@@ -1,5 +1,6 @@
 package ru.mezhendosina.ntiteamtest.ui.shop
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.fadeIn
@@ -83,32 +84,33 @@ fun ShopScreen(component: ShopComponent) {
             onCLick = component::onCartClick
         )
     }) { paddingValues ->
-        if (model.state == UiState.LOADING) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                CircularProgressIndicator()
+        AnimatedContent(targetState = model.state) {
+            if (it == UiState.LOADING) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+                return@AnimatedContent
+            } else if (model.items.isEmpty() && model.state == UiState.LOADED) {
+                EmptyScreen(text = stringResource(R.string.emty_catalog))
+                return@AnimatedContent
             }
-            return@Scaffold
-        }
-        if (model.items.isEmpty()) {
-            EmptyScreen(text = stringResource(R.string.emty_catalog))
-            return@Scaffold
-        }
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(167.dp),
-            modifier = Modifier
-                .animateContentSize()
-                .padding(paddingValues)
-                .padding(horizontal = 8.dp),
-        ) {
-            items(model.items) { itemEntity ->
-                ItemCard(
-                    itemEntity = itemEntity,
-                    onClick = { component.onItemClick(itemEntity.id) }) {
-                    component.onItemCountChanges(itemEntity.id, it)
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(167.dp),
+                modifier = Modifier
+                    .animateContentSize()
+                    .padding(paddingValues)
+                    .padding(horizontal = 8.dp),
+            ) {
+                items(model.items) { itemEntity ->
+                    ItemCard(
+                        itemEntity = itemEntity,
+                        onClick = { component.onItemClick(itemEntity.id) }) {
+                        component.onItemCountChanges(itemEntity.id, it)
+                    }
                 }
             }
         }
