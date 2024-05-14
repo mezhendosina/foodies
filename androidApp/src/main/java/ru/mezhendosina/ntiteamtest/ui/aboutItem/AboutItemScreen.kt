@@ -90,11 +90,11 @@ fun AboutItemScreen(component: AboutItemComponent) {
             model.aboutItem.let { aboutItem ->
                 item{
 
-                    TagsList(
-                        tags = aboutItem.tags,
-//                        modifier = Modifier.padding(top = it.calculateTopPadding(), start = 16.dp)
-                    )
                     Box {
+                        TagsList(
+                            tags = aboutItem.tags,
+                            modifier = Modifier.padding(top = it.calculateTopPadding(), start = 16.dp)
+                        )
                         Image(
                             painter = painterResource(id = R.drawable.ic_photo),
                             contentDescription = aboutItem.name,

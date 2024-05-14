@@ -9,14 +9,14 @@ import ru.mezhendosina.ntiteamtest.R
 import ru.mezhendosina.shared.ui.entities.Tag
 
 @Composable
-fun TagImage(tag: Tag, modifier: Modifier =Modifier) {
+fun TagImage(tag: Int, modifier: Modifier =Modifier) {
     val tagToPainter: Painter = painterResource(
         id = when (tag) {
             Tag.HOT -> R.drawable.ic_hot
             Tag.ECO -> R.drawable.ic_eco
-            Tag.DISCOUNT -> R.drawable.ic_discount
+            Tag.NEW, Tag.EXPRESS_MENU, Tag.HIT -> R.drawable.ic_discount
             else -> return
         }
     )
-    Image(painter = tagToPainter, contentDescription = null, modifier=modifier)
+    Image(painter = tagToPainter, contentDescription = null)
 }

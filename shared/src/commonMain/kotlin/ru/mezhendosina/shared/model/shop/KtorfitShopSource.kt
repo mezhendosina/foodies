@@ -41,7 +41,7 @@ class KtorfitShopSource(private val ktorfit: Ktorfit) : ShopSource {
             it.carbohydratesPer100Grams,
             (it.priceCurrent / 100).toDouble(),
             (it.priceOld?.div(100))?.toDouble(),
-//            tag = it.tagIds.firstOrNull() ?: Tag.NONE
+            tags = it.tagIds
         )
     }
 }

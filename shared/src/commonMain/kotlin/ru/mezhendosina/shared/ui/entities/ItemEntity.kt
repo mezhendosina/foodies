@@ -70,7 +70,7 @@ data class ItemEntity(
                 123.0,
                 123.0,
                 count,
-                listOf(Tag.HOT)
+                listOf(Tag.HOT, Tag.ECO)
             )
     }
 }
