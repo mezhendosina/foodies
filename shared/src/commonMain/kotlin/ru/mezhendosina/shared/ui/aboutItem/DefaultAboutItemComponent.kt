@@ -3,6 +3,8 @@ package ru.mezhendosina.shared.ui.aboutItem
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.decompose.value.subscribe
+import com.arkivanov.decompose.value.update
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,11 +23,20 @@ class DefaultAboutItemComponent(
     )
     override val model: Value<AboutItemComponent.Model> = _model
 
+    init {
+        shopRepository.items.subscribe(lifecycle) { list ->
+            val item = list.first { it.id == id }
+            _model.update {
+                AboutItemComponent.Model(item)
+            }
+        }
+    }
+
     override fun onBack() = onBack.invoke()
 
     override fun onItemCountChanges(count: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            cartRepository.updateCount(
+            shopRepository.updateCount(
                 model.value.aboutItem.updateCount(count)
             )
         }

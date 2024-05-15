@@ -18,5 +18,5 @@ interface ShopRepository {
     fun getSum(): Double
 
 
-    suspend fun getItems(categoryId: Int)
+    suspend fun getItems()
 }

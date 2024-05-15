@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.mezhendosina.shared.model.shop.repo.ShopRepository
+import ru.mezhendosina.shared.ui.entities.CategoryEntity
 import ru.mezhendosina.shared.ui.entities.ItemEntity
 import ru.mezhendosina.shared.ui.entities.UiState
 
@@ -25,7 +26,7 @@ class DefaultShopComponent(
             shopRepository.categories.value,
             shopRepository.items.value,
             shopRepository.categories.value.firstOrNull()?.id ?: -1,
-            UiState.LOADED,
+            UiState.LOADING,
             shopRepository.getSum()
         )
     )
@@ -34,28 +35,65 @@ class DefaultShopComponent(
     init {
         CoroutineScope(Dispatchers.IO).launch {
             stateLoading()
-            shopRepository.getItems(_model.value.selectedCategoryId)
+            shopRepository.getItems()
+            stateLoaded()
         }
         shopRepository.categories.subscribe(lifecycle) { list ->
-            _model.update {
-                ShopComponent.Model(
-                    list,
-                    it.items,
-                    if (it.selectedCategoryId == -1) list.firstOrNull()?.id
-                        ?: -1 else it.selectedCategoryId,
-                    it.state,
-                    it.cartSum
-                )
-            }
+            updateCategories(list)
         }
         shopRepository.items.subscribe(lifecycle) { list ->
-            CoroutineScope(Dispatchers.IO).launch {
+            updateItems(list)
+        }
+        model.subscribe(lifecycle) {
+            filterItems(it)
+        }
+    }
+
+    private fun filterItems(model1: ShopComponent.Model) {
+        CoroutineScope(Dispatchers.IO).launch {
+            if (model1.items.find { it.categoryId == model1.selectedCategoryId } == null && model1.selectedCategoryId != -1) {
+                val items =
+                    shopRepository.items.value.filter { it.categoryId == model1.selectedCategoryId }
+                        .sortedBy { it.name }
+                withContext(Dispatchers.Main) {
+                    _model.update {
+                        ShopComponent.Model(
+                            it.category,
+                            items,
+                            it.selectedCategoryId,
+                            it.state,
+                            it.cartSum
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private fun updateCategories(list: List<CategoryEntity>) {
+        _model.update {
+            ShopComponent.Model(
+                list,
+                it.items,
+                if (it.selectedCategoryId == -1) list.firstOrNull()?.id
+                    ?: -1 else it.selectedCategoryId,
+                it.state,
+                it.cartSum
+            )
+        }
+    }
+
+    private fun updateItems(list: List<ItemEntity>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val sortList =
+                list.filter { it.categoryId == model.value.selectedCategoryId }.sortedBy { it.name }
+            withContext(Dispatchers.Main) {
                 _model.update {
                     ShopComponent.Model(
                         it.category,
-                        list,
+                        sortList,
                         it.selectedCategoryId,
-                        UiState.LOADED,
+                        it.state,
                         shopRepository.getSum()
                     )
                 }
@@ -68,7 +106,7 @@ class DefaultShopComponent(
         _model.update { modelUpdate ->
             ShopComponent.Model(
                 modelUpdate.category,
-                shopRepository.items.value.filter { it.categoryId == id },
+                modelUpdate.items,
                 id,
                 modelUpdate.state,
                 modelUpdate.cartSum
@@ -84,6 +122,20 @@ class DefaultShopComponent(
             val getItem = _model.value.items.first { it.id == id }.updateCount(count)
             shopRepository.updateCount(getItem)
 
+        }
+    }
+
+    private suspend fun stateLoaded() {
+        withContext(Dispatchers.Main) {
+            _model.update {
+                ShopComponent.Model(
+                    it.category,
+                    it.items,
+                    it.selectedCategoryId,
+                    UiState.LOADED,
+                    it.cartSum
+                )
+            }
         }
     }
 

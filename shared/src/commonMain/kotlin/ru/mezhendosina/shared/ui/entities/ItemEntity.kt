@@ -18,7 +18,7 @@ data class ItemEntity(
     val price: Double,
     val oldPrice: Double? = null,
     val count: Int = 0,
-    val tag: Tag = Tag.NONE,
+    val tags: List<Int> = listOf(Tag.NONE),
     val inCart: Boolean = false
 ) {
 
@@ -35,7 +35,7 @@ data class ItemEntity(
         price,
         oldPrice,
         count,
-        tag,
+        tags,
         boolean
     )
 
@@ -52,7 +52,7 @@ data class ItemEntity(
         price,
         oldPrice,
         newCount,
-        tag
+        tags
     )
 
     companion object {
@@ -70,7 +70,7 @@ data class ItemEntity(
                 123.0,
                 123.0,
                 count,
-                Tag.HOT
+                listOf(Tag.HOT, Tag.ECO)
             )
     }
 }

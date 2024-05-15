@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,6 +32,7 @@ import ru.mezhendosina.ntiteamtest.R
 import ru.mezhendosina.ntiteamtest.ui.components.FixedButton
 import ru.mezhendosina.ntiteamtest.ui.components.MeasurementsItem
 import ru.mezhendosina.ntiteamtest.ui.components.OutlinedItemCounter
+import ru.mezhendosina.ntiteamtest.ui.components.TagsList
 import ru.mezhendosina.ntiteamtest.ui.theme.NtiTeamTestTheme
 import ru.mezhendosina.shared.ui.aboutItem.AboutItemComponent
 import ru.mezhendosina.shared.ui.aboutItem.PreviewAboutItemComponent
@@ -82,62 +84,72 @@ fun AboutItemScreen(component: AboutItemComponent) {
             }
         },
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier
-                .padding(bottom = it.calculateBottomPadding())
-                .verticalScroll(rememberScrollState()),
-
-        ) {
+                .padding(bottom = it.calculateBottomPadding())) {
             model.aboutItem.let { aboutItem ->
-                Box {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_photo),
-                        contentDescription = aboutItem.name,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                }
-                Spacer(Modifier.size(24.dp))
-                Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-                    Text(
-                        aboutItem.name,
-                        style = MaterialTheme.typography.displayMedium,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Spacer(modifier = Modifier.size(8.dp))
-                    Text(
-                        text = aboutItem.description,
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                }
-                Spacer(modifier = Modifier.size(24.dp))
-                MeasurementsItem(
-                    name = stringResource(R.string.weight),
-                    value = aboutItem.weight,
-                )
-                MeasurementsItem(
-                    name = stringResource(R.string.energy),
-                    value = stringResource(
-                        R.string.gramms,
-                        aboutItem.energy,
-                    ),
-                )
+                item{
 
-                MeasurementsItem(
-                    name = stringResource(R.string.proteins),
-                    value = stringResource(
-                        R.string.gramms,
-                        aboutItem.proteins,
-                    ),
-                )
+                    Box {
+                        TagsList(
+                            tags = aboutItem.tags,
+                            modifier = Modifier.padding(top = it.calculateTopPadding(), start = 16.dp)
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_photo),
+                            contentDescription = aboutItem.name,
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    }
+                    Spacer(Modifier.size(24.dp))
+                }
+                item{
 
-                MeasurementsItem(
-                    name = stringResource(R.string.fats),
-                    value = stringResource(
-                        R.string.gramms,
-                        aboutItem.fats,
-                    ),
-                )
-                HorizontalDivider()
+                    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+                        Text(
+                            aboutItem.name,
+                            style = MaterialTheme.typography.displayMedium,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                        Spacer(modifier = Modifier.size(8.dp))
+                        Text(
+                            text = aboutItem.description,
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                    }
+                    Spacer(modifier = Modifier.size(24.dp))
+                }
+                item{
+
+                    MeasurementsItem(
+                        name = stringResource(R.string.weight),
+                        value = aboutItem.weight,
+                    )
+                    MeasurementsItem(
+                        name = stringResource(R.string.energy),
+                        value = stringResource(
+                            R.string.gramms,
+                            aboutItem.energy,
+                        ),
+                    )
+
+                    MeasurementsItem(
+                        name = stringResource(R.string.proteins),
+                        value = stringResource(
+                            R.string.gramms,
+                            aboutItem.proteins,
+                        ),
+                    )
+
+                    MeasurementsItem(
+                        name = stringResource(R.string.fats),
+                        value = stringResource(
+                            R.string.gramms,
+                            aboutItem.fats,
+                        ),
+                    )
+                    HorizontalDivider()
+                }
             }
         }
     }

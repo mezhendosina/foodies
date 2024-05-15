@@ -41,7 +41,7 @@ class ShopRepositoryImpl(
     override fun getSum(): Double =
         _items.value.sumOf { if (it.inCart) it.price * it.count else 0.0 }
 
-    override suspend fun getItems(categoryId: Int) {
+    override suspend fun getItems() {
         if (_items.value.isNotEmpty()) return
         val categoryResp = shopSource.getCategories()
         val shopResp = shopSource.getProducts()
@@ -49,6 +49,5 @@ class ShopRepositoryImpl(
             _items.update { shopResp }
             _categories.update { categoryResp }
         }
-
     }
 }
