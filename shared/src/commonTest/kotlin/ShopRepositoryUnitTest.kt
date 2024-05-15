@@ -33,7 +33,9 @@ class ShopRepositoryUnitTest {
     fun testUpdateCount() {
         runBlocking {
             shopRepository.getItems()
-
+            val item = shopRepository.items.value.get(0)
+            shopRepository.updateCount(item.updateCount(1))
+            assert(shopRepository.items.value.get(0).count == 1)
         }
     }
 
