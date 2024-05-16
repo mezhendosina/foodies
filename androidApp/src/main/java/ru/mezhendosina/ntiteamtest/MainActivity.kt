@@ -3,6 +3,7 @@ package ru.mezhendosina.ntiteamtest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import com.arkivanov.decompose.defaultComponentContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
@@ -18,6 +19,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
         super.onCreate(savedInstanceState)
 
         val rootComponent = DefaultRootComponent(defaultComponentContext(), get(), get())
+        enableEdgeToEdge()
         setContent {
             NtiTeamTestTheme {
                 RootScreen(rootComponent)
