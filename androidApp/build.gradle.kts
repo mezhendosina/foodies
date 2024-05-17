@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "ru.mezhendosina.ntiteamtest"
+    namespace = "ru.mezhendosina.foodies"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "ru.mezhendosina.ntiteamtest"
+        applicationId = "ru.mezhendosina.foodies"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
