@@ -1,4 +1,4 @@
-# nti team test app
+# foodies
 
 <p>
   <img src="./assets/1.png">
