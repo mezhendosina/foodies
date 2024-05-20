@@ -1,13 +1,18 @@
 # foodies
 
-<p>
-  <img src="./assets/1.png">
-  <img src="./assets/2.png">
-  <img src="./assets/3.png">
-  <img src="./assets/4.png">
-</p>
 
+## Что реализовано?
+- Список всех продуктов, сгруппированных по категориям
+<img src="./assets/1.png">
+- Корзина
+<img src="./assets/3.png">
+- Подробности о продукте
+<img src="./assets/4.png">
+> Т.к. в api нет эндпоинта для получения превью продукта, я захардкодил его
 
-
-- Использовал Compose, KMP, Decompose, Ktorfit, Koin
-- Т.к. в json с продуктами у всех элементов списка одна фотография, я захардкодил ее
+## Что использовалось?
+- Koltin Multiplatform
+- Compose 
+- Decompose 
+- Ktorfit 
+- Koin

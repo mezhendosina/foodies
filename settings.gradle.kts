@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "nti team test"
+rootProject.name = "foodies"
 include(":androidApp")
 include(":shared")

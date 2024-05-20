@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">nti team test</string>
+    <string name="app_name">Foodies</string>
     <string name="back">Назад</string>
     <string name="to_cart">В корзину за %1$s ₽</string>
     <string name="weight">Вес</string>
