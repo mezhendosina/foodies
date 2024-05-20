@@ -3,6 +3,7 @@ package ru.mezhendosina.foodies.ui.cart
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -33,6 +34,7 @@ fun CartScreen(cartComponent: CartComponent) {
             CartTopBar(title = stringResource(R.string.cart), cartComponent::onBack)
         },
         bottomBar = {
+            if (model.cartSum > 0)
             Box(
                 modifier = Modifier
                     .shadow(10.dp)
@@ -44,6 +46,7 @@ fun CartScreen(cartComponent: CartComponent) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .navigationBarsPadding()
                 ) { }
             }
         },

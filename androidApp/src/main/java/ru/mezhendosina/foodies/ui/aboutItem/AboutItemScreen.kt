@@ -6,8 +6,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -67,7 +70,8 @@ fun AboutItemScreen(component: AboutItemComponent) {
                         .padding(
                             horizontal = 16.dp,
                             vertical = 12.dp,
-                        ),
+                        )
+                        .navigationBarsPadding(),
                     onCLick = { component.onItemCountChanges(1) },
                 )
             } else {
@@ -75,7 +79,8 @@ fun AboutItemScreen(component: AboutItemComponent) {
                     count = model.aboutItem.count,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .navigationBarsPadding(),
                     Color.Transparent,
                     onCountChange = { component.onItemCountChanges(it) },
                 )
@@ -84,14 +89,19 @@ fun AboutItemScreen(component: AboutItemComponent) {
     ) {
         LazyColumn(
             modifier = Modifier
-                .padding(bottom = it.calculateBottomPadding())) {
+                .padding(bottom = it.calculateBottomPadding())
+                .statusBarsPadding()
+        ) {
             model.aboutItem.let { aboutItem ->
-                item{
+                item {
 
                     Box {
                         TagsList(
                             tags = aboutItem.tags,
-                            modifier = Modifier.padding(top = it.calculateTopPadding(), start = 16.dp)
+                            modifier = Modifier.padding(
+                                top = it.calculateTopPadding(),
+                                start = 16.dp
+                            )
                         )
                         Image(
                             painter = painterResource(id = R.drawable.ic_photo),
@@ -101,7 +111,7 @@ fun AboutItemScreen(component: AboutItemComponent) {
                     }
                     Spacer(Modifier.size(24.dp))
                 }
-                item{
+                item {
 
                     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
                         Text(
@@ -117,7 +127,7 @@ fun AboutItemScreen(component: AboutItemComponent) {
                     }
                     Spacer(modifier = Modifier.size(24.dp))
                 }
-                item{
+                item {
 
                     MeasurementsItem(
                         name = stringResource(R.string.weight),

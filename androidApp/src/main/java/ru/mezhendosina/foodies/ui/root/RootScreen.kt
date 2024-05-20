@@ -1,6 +1,8 @@
 package ru.mezhendosina.foodies.ui.root
 
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.fade
@@ -32,10 +34,9 @@ fun RootScreen(rootComponent: RootComponent) {
 
             },
             onBack = rootComponent::onBack,
+        ),
+    ) {
 
-            ),
-
-        ) {
         when (val child = it.instance) {
             is RootComponent.Child.CartChild -> CartScreen(child.component)
             is RootComponent.Child.ShopChild -> ShopScreen(child.component)

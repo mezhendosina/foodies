@@ -7,6 +7,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -93,11 +94,12 @@ fun ShopScreen(component: ShopComponent) {
         bottomBar = {
             FixedButton(
                 text = stringResource(R.string.rubs, model.cartSum),
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp).navigationBarsPadding(),
                 model.cartSum > 0,
                 onCLick = component::onCartClick
             )
-        }
+        },
+
     ) { paddingValues ->
         HorizontalPager(state = pagerState) {
             ShopItem(
